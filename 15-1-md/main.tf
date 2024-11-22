@@ -88,12 +88,7 @@ resource "yandex_compute_instance" "private_instance" {
 
 // Создание бакета Object Storage
 resource "yandex_storage_bucket" "my_bucket" {
-  name = "denis_10_04_1997" # Замените на ваше имя и дату. Пример: "ivanov_2024-04-01"
-  
-  access_control {
-    role     = "viewer" 
-    principal = "allUsers"
-  }
+  name = "denis_10_04_1997" // Замените на ваше имя и дату. Пример: "ivanov_2024-04-01"
 }
 
 // Загрузка файла в бакет
@@ -109,6 +104,10 @@ resource "yandex_compute_instance_group" "lamp_group" {
   zone        = "ru-central1-a"
   instances   = 3 // Количество инстансов
   platform_id = "standard-v1"
+
+  deployment_policy {
+    stateful = false
+  }
 
   template {
     resource "yandex_compute_instance" "lamp_template" {
