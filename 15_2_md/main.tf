@@ -117,7 +117,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
     }
   }
 
-  healthcheck {
+  health_check {
     interval  = 30
     timeout   = 5
     path      = "/"
