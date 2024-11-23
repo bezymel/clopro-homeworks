@@ -103,6 +103,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
       boot_disk {
        image_id = "fd81id4ciatai2csff2u"  # Укажите ID образа вашей виртуальной машины
        size = 10   # 10 ГБ
+       }
 
     resources {
       cores  = 2
