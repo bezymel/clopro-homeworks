@@ -145,7 +145,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
 }
 
   // Добавление healthcheck
-  healthcheck {
+  health_check {
     path      = "/"
     port      = 80
     protocol  = "HTTP"
