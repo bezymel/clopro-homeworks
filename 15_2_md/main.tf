@@ -13,6 +13,7 @@ provider "yandex" {
   token     = var.yc_token
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
+  version   = ">= 0.80.0"
 }
 
 resource "yandex_vpc_network" "my_vpc" {
