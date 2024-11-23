@@ -88,8 +88,6 @@ resource "yandex_compute_instance" "private_instance" {
 
 resource "yandex_storage_bucket" "my_bucket" {
   bucket = "denis-10-04-1997" # Замените на ваше имя и дату. Пример: "ivanov-2024-04-01"
-  storage_class = "standard"
-  location = "ru-central1-a"
 }
 
 // Загрузка файла в бакет
