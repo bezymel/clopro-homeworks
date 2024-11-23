@@ -91,9 +91,8 @@ resource "yandex_storage_bucket" "my_bucket" {
 }
 
 resource "yandex_storage_object" "my_image" {
-  bucket = yandex_storage_bucket.my_bucket.name
-  name   = "my_image.jpg" // Укажите имя файла, который сохраняется в бакете
-  source = "local/path/to/your/image.jpg" // Укажите локальный путь к файлу, который вы хотите загрузить в бакет
+  bucket = yandex_storage_bucket.my_bucket.bucket
+  source = "~/image.jpg" // Укажите локальный путь к файлу, который вы хотите загрузить в бакет
 }
 
 resource "yandex_compute_instance_group" "my_instance_group" {
