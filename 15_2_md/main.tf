@@ -86,14 +86,10 @@ resource "yandex_compute_instance" "private_instance" {
   }
 }
 
-// Создание бакета Object Storage
 resource "yandex_storage_bucket" "my_bucket" {
   bucket = "denis-10-04-1997" # Замените на ваше имя и дату. Пример: "ivanov-2024-04-01"
-  
-  access_control {
-    role     = "viewer"
-    principal = "allUsers"
-  }
+  storage_class = "standard"
+  location = "ru-central1"
 }
 
 // Загрузка файла в бакет
