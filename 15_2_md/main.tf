@@ -99,33 +99,52 @@ resource "yandex_storage_object" "my_image" {
   source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
 }
 
-// Группа ВМ с заданием для LAMP
 resource "yandex_compute_instance_group" "lamp_group" {
-  name        = "lamp-instance-group"
-  zone        = "ru-central1-a"
-  instances   = 3 // Количество инстансов
-  platform_id = "standard-v1"
+  name = "lamp-group"
 
-  template {
+  instances {
+    disk {
+      image_id = "<IMAGE_ID>"  # Укажите ID образа вашей виртуальной машины
+      size = 10_000_000_000    # 10 ГБ
+    }
+
     resources {
-      cores   = 2
-      memory  = 2
+      cores  = 2
+      memory = 2
     }
 
     network_interface {
-      subnet_id = yandex_vpc_subnet.public_subnet.id
-    }
-
-    boot_disk {
-      initialize_params {
-        image_id = "fd81id4ciatai2csff2u" // Укажите ID образа LAMP
-      }
-    }
-
-    metadata = {
-      ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj57badbetWAZLY/Kwq1IE9GWkkXEhUX8j6ymp6vlcd+7sAo5OEVv+HP8IBdO6ilwwbNreTH8UOyscBq2nm29d5jcRlvqxvripaQdvtFli8V6xRxS1B/7TQvoxL5u3GOigOMSC27km2g4fqIKlZ/LKX0yDGY3G/FHmJSYCt0Zt/WjmoC2yxUSYgrG7wP your_email@example.com"
+      subnet_id = yandex_vpc_subnet.private_subnet.id
+      nat       = true
     }
   }
+
+  healthcheck {
+    interval  = 30
+    timeout   = 5
+    path      = "/"
+    protocol  = "HTTP"
+    port      = 80
+    healthy_threshold = 2
+    unhealthy_threshold = 3
+  }
+
+  allocation_policy {
+    zones = ["ru-central1-a"]
+  }
+
+  deploy_policy {
+    strategy = "IMMEDIATE"
+  }
+
+  scale_policy {
+    fixed_scale {
+      size = 3 // Количество инстансов
+    }
+  }
+
+  service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
+}
 
   // Добавление healthcheck
   healthcheck {
