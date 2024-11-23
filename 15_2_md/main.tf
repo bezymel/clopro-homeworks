@@ -96,7 +96,7 @@ resource "yandex_storage_object" "my_image" {
   key      = "800px-BMWM3E36-001.jpg"
 }
 
-resource "yandex_compute_instance_template" "template" {
+resource "yandex_compute_instance_template" "lamp-template" {
   name        = "lamp-template"
   platform_id = "standard-v1"
 
