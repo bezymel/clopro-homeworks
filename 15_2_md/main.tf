@@ -88,7 +88,6 @@ resource "yandex_compute_instance" "private_instance" {
 
 resource "yandex_storage_bucket" "my_bucket" {
   bucket     = "denis_2024-04-10"
-  nat        = true
 }
 
 resource "yandex_storage_object" "my_image" {
@@ -123,13 +122,7 @@ resource "yandex_compute_instance_template" "template" {
                 EOF
   }
 }
-
-resource "yandex_compute_instance_group" "instance_group" {
-  name        = "lamp-instance-group"
-  platform_id = "standard-v1"
-  zones        = "ru-central1-a"
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
-  instance_template_id = yandex_compute_instance_template.template.id
 
   health_check {
     http_options {
