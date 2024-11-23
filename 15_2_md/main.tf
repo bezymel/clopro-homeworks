@@ -90,47 +90,54 @@ resource "yandex_storage_bucket" "my_bucket" {
   bucket = "denis-10-04-1997" # Замените на ваше имя и дату. Пример: "ivanov-2024-04-01"
 }
 
+// Загрузка файла в бакет
 resource "yandex_storage_object" "my_image" {
   bucket = yandex_storage_bucket.my_bucket.bucket
-  source = "~/image.jpg" // Укажите локальный путь к файлу, который вы хотите загрузить в бакет
+  source = "/absolute/path/to/your/my-image.png" // Укажите абсолютный путь к вашему изображению на локальной машине
+  key    = "my-image.png" // Укажите имя файла в бакете
 }
 
-resource "yandex_compute_instance_group" "my_instance_group" {
-  name = "my-instance-group"
+resource "yandex_compute_instance_group" "lamp_group" {
+  name = "lamp-group"
+
   instance_template {
-    name        = "my-instance"
-    platform_id = "standard-v1"
+    boot_disk {
+      image_id = "fd8b1fqmhc9zv4403j1t" // Укажите образ, который хотите использовать для инстансов
+    }
 
     resources {
       cores  = 2
       memory = 2
     }
 
-    boot_disk {
-      initialize_params {
-        image_id = "fd81id4ciatai2csff2u" // Укажите необходимый ID образа
-      }
-    }
-
     network_interface {
-      subnet_id = yandex_vpc_subnet.private_subnet.id
-    }
-  }
-
-  scale_policy {
-    fixed_scale {
-      size = 2
+      subnet_ids = [yandex_vpc_subnet.private_subnet.id]
+      nat       = true
     }
   }
 
   health_check {
-    tcp {
-      port = 80 // Укажите порт, используемый для проверки работоспособности
-    }
-    interval = 10
-    timeout  = 5
+    interval            = 30
+    timeout             = 5
+    healthy_threshold  = 2
     unhealthy_threshold = 3
-    healthy_threshold   = 2
   }
+
+  allocation_policy {
+    zones = ["ru-central1-a"]
+  }
+
+  deploy_policy {
+    strategy             = "proactive"
+    max_unavailable      = 0
+    max_expansion        = 0
+  }
+
+  scale_policy {
+    fixed_scale {
+      size = 3 // Количество инстансов
+    }
+  }
+
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 }
