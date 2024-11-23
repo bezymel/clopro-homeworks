@@ -94,6 +94,7 @@ resource "yandex_storage_bucket" "my_bucket" {
 resource "yandex_storage_object" "my_image" {
   bucket = yandex_storage_bucket.my_bucket.bucket
   source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
+  access_key = "oYCAJE_WTZlb7bQO-sssuVfG3o"
 }
 
 resource "yandex_compute_instance_group" "lamp_group" {
