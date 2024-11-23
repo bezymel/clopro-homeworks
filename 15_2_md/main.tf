@@ -121,7 +121,7 @@ resource "yandex_compute_instance_template" "template" {
                 systemctl restart nginx
                 EOF
   }
-}
+
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 
   health_check {
