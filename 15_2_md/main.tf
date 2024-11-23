@@ -93,7 +93,6 @@ resource "yandex_storage_bucket" "my_bucket" {
 // Загрузка файла в бакет
 resource "yandex_storage_object" "my_image" {
   bucket = yandex_storage_bucket.my_bucket.bucket
-  name   = "my-image.png" // Замените на имя вашего файла
   source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
 }
 
@@ -112,7 +111,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
     }
 
     network_interface {
-      subnet_id = yandex_vpc_subnet.private_subnet.id
+      subnet_ids = yandex_vpc_subnet.private_subnet.id
       nat       = true
     }
   }
@@ -120,9 +119,6 @@ resource "yandex_compute_instance_group" "lamp_group" {
   health_check {
     interval  = 30
     timeout   = 5
-    path      = "/"
-    protocol  = "HTTP"
-    port      = 80
     healthy_threshold = 2
     unhealthy_threshold = 3
   }
@@ -133,6 +129,8 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
   deploy_policy {
     strategy = "IMMEDIATE"
+    max_unavailable = 0
+    max_expansion = 0
   }
 
   scale_policy {
