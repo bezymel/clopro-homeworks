@@ -93,7 +93,7 @@ resource "yandex_storage_bucket" "my_bucket" {
 
 // Загрузка файла в бакет
 resource "yandex_storage_object" "my_image" {
-  bucket = yandex_storage_bucket.my_bucket.name
+  bucket = yandex_storage_bucket.my_bucket.bucket
   name   = "my-image.png" // Замените на имя вашего файла
   source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
 }
@@ -140,9 +140,3 @@ resource "yandex_compute_instance_group" "lamp_group" {
   }
 }
 
-      lifecycle {
-        create_before_destroy = true
-      }
-    }
-  }
-}
