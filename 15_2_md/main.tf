@@ -75,6 +75,7 @@ resource "yandex_compute_instance_group" "instance_group" {
   name        = "lamp-instance-group"
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
+  service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 
   instance_template_id = yandex_compute_instance_template.template.id
   scale               = 3
