@@ -100,9 +100,9 @@ resource "yandex_storage_object" "my_image" {
 resource "yandex_compute_instance_group" "lamp_group" {
   name = "lamp-group"
 
-  boot_disk {
-    initialize_params {
-      image_id = "fd81id4ciatai2csff2u" // Укажите необходимый ID образа
+  instance_template {
+    boot_disk {
+      image_id = "fd8b1fqmhc9zv4403j1t" // Укажите образ, который хотите использовать для инстансов
     }
 
     resources {
