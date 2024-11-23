@@ -140,8 +140,3 @@ resource "yandex_compute_instance_group" "lamp_group" {
   }
 }
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
-}
-
-
-
-
