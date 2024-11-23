@@ -56,7 +56,7 @@ resource "yandex_compute_instance" "nat_instance" {
   }
 
   metadata = {
-    ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj"
+    ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj57badbetWAZLY/Kwq1IE9GWkkXEhUX8j6ymp6vlcd+7sAo5OEVv+HP8IBdO6ilwwbNreTH8UOyscBq2nm29d5jcRlvqxvripaQdvtFli8V6xRxS1B/7TQvoxL5u3GOigOMSC27km2g4fqIKlZ/LKX0yDGY3G/FHmJSYCt0Zt/WjmoC2yxUSYgrG7wP your_email@example.com"
   }
 }
 
@@ -82,13 +82,13 @@ resource "yandex_compute_instance" "private_instance" {
   }
 
   metadata = {
-    ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj"
+    ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj57badbetWAZLY/Kwq1IE9GWkkXEhUX8j6ymp6vlcd+7sAo5OEVv+HP8IBdO6ilwwbNreTH8UOyscBq2nm29d5jcRlvqxvripaQdvtFli8V6xRxS1B/7TQvoxL5u3GOigOMSC27km2g4fqIKlZ/LKX0yDGY3G/FHmJSYCt0Zt/WjmoC2yxUSYgrG7wP your_email@example.com"
   }
 }
 
 // Создание бакета Object Storage
 resource "yandex_storage_bucket" "my_bucket" {
-  name = "имя_студента_дата" # Замените на ваше имя и дату. Пример: "ivanov_2024-04-01"
+  name = "denis_1997-04-10" # Замените на ваше имя и дату.
   
   access_control {
     role     = "viewer" 
@@ -100,7 +100,7 @@ resource "yandex_storage_bucket" "my_bucket" {
 resource "yandex_storage_object" "my_image" {
   bucket = yandex_storage_bucket.my_bucket.name
   name   = "my-image.png" // Замените на имя вашего файла
-  source = "path/to/your/image.png" // Укажите путь к вашему изображению на локальной машине
+  source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
 }
 
 // Группа ВМ с заданием для LAMP
@@ -132,7 +132,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
       }
 
       metadata = {
-        ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj"
+        ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj57badbetWAZLY/Kwq1IE9GWkkXEhUX8j6ymp6vlcd+7sAo5OEVv+HP8IBdO6ilwwbNreTH8UOyscBq2nm29d5jcRlvqxvripaQdvtFli8V6xRxS1B/7TQvoxL5u3GOigOMSC27km2g4fqIKlZ/LKX0yDGY3G/FHmJSYCt0Zt/WjmoC2yxUSYgrG7wP your_email@example.com"
       }
 
       lifecycle {
