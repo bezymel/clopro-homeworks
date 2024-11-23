@@ -34,7 +34,7 @@ resource "yandex_vpc_subnet" "private_subnet" {
 }
 
 resource "yandex_storage_bucket" "my_bucket" {
-  name     = "denis_2024-04-10"
+  bucket     = "denis_2024-04-10"
   public_access   = true
 }
 
