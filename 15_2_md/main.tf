@@ -104,8 +104,8 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
   instances {
     disk {
-      image_id = "<IMAGE_ID>"  # Укажите ID образа вашей виртуальной машины
-      size = 10_000_000_000    # 10 ГБ
+      image_id = "fd81id4ciatai2csff2u"  # Укажите ID образа вашей виртуальной машины
+      size = 10   # 10 ГБ
     }
 
     resources {
