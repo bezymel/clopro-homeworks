@@ -144,19 +144,6 @@ resource "yandex_compute_instance_group" "lamp_group" {
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 }
 
-  // Добавление healthcheck
-  health_check {
-    path      = "/"
-    port      = 80
-    protocol  = "HTTP"
-    interval  = 30
-    timeout   = 5
-    healthy_threshold = 2
-    unhealthy_threshold = 3
-  }
 
-  allocation_policy {
-    zones = ["ru-central1-a"]
-}
 
 
