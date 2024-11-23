@@ -101,8 +101,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
     instance_template {
       boot_disk {
-       image_id = ""  # Укажите ID образа вашей виртуальной машины
-       }
+    }
 
     resources {
       cores  = 2
@@ -127,7 +126,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
   }
 
   deploy_policy {
-    strategy = "IMMEDIATE"
+    strategy = "proactive"
     max_unavailable = 0
     max_expansion = 0
   }
