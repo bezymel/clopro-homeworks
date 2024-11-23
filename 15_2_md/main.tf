@@ -101,6 +101,7 @@ resource "yandex_compute_instance" "lamp-instance" {
   zone        = "ru-cental1-a"
   count       = 3
   platform_id = "standard-v1"
+  service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 
   resources {
     cores  = 2
@@ -123,8 +124,6 @@ resource "yandex_compute_instance" "lamp-instance" {
                 systemctl restart nginx
                 EOF
   }
-
-  service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 
   health_check {
     http_options {
