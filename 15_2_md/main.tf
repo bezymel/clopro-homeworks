@@ -139,6 +139,5 @@ resource "yandex_compute_instance_group" "my_instance_group" {
     unhealthy_threshold = 3
     healthy_threshold   = 2
   }
-}
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 }
