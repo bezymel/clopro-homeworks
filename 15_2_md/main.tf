@@ -88,6 +88,7 @@ resource "yandex_compute_instance" "private_instance" {
 
 resource "yandex_storage_bucket" "my_bucket" {
   bucket     = "denis_2024-04-10"
+  nat        = true
 }
 
 resource "yandex_storage_object" "my_image" {
