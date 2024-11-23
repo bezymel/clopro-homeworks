@@ -89,6 +89,22 @@ resource "yandex_compute_instance_group" "instance_group" {
     healthy_threshold = 2
     unhealthy_threshold = 2
   }
+
+  allocation_policy {
+    zones = ["ru-central1-a"]
+  }
+
+  deploy_policy {
+    strategy             = "proactive"
+    max_unavailable      = 10
+    max_expansion        = 10
+  }
+
+  scale_policy {
+    fixed_scale {
+      size = 3 // Количество инстансов
+    }
+  }
 }
 
 resource "yandex_network_load_balancer" "nlb" {
