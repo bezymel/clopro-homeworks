@@ -99,10 +99,9 @@ resource "yandex_storage_object" "my_image" {
 resource "yandex_compute_instance_group" "lamp_group" {
   name = "lamp-group"
 
-  instance_template {
-    boot_disk {
-      image_id = "fd81id4ciatai2csff2u"  # Укажите ID образа вашей виртуальной машины
-      size = 10   # 10 ГБ
+  boot_disk {
+    initialize_params {
+      image_id = "fd81id4ciatai2csff2u" // Укажите необходимый ID образа
     }
 
     resources {
