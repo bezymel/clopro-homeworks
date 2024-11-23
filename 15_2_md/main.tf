@@ -159,6 +159,6 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
   allocation_policy {
     zones = ["ru-central1-a"]
-  }
 }
+
 
