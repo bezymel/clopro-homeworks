@@ -93,7 +93,7 @@ resource "yandex_storage_bucket" "my_bucket" {
 resource "yandex_storage_object" "my_image" {
   bucket    = yandex_storage_bucket.my_bucket.name
   source    = "/home/bezumel/clopro/clopro-homeworks/15-2-md/800px-BMWM3E36-001.jpg" # Укажите путь к изображению на Вашем локальном компьютере
-  name      = "800px-BMWM3E36-001.jpg"
+  key      = "800px-BMWM3E36-001.jpg"
 }
 
 resource "yandex_compute_instance_template" "template" {
