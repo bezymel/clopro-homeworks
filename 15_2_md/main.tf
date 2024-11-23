@@ -91,51 +91,54 @@ resource "yandex_storage_bucket" "my_bucket" {
 }
 
 // Загрузка файла в бакет
-resource "yandex_storage_object" "my_image" {
-  bucket = yandex_storage_bucket.my_bucket.bucket
-  source = "~/my-image.png" // Укажите путь к вашему изображению на локальной машине
-  access_key = "oYCAJE_WTZlb7bQO-sssuVfG3o"
+resource "yandex_storage_bucket" "my_bucket" {
+  name     = "my-bucket"
+  location = "ru-central1"
 }
 
-resource "yandex_compute_instance_group" "lamp_group" {
-  name = "lamp-group"
+resource "yandex_storage_object" "my_image" {
+  bucket = yandex_storage_bucket.my_bucket.name
+  name   = "my_image.jpg" // Укажите имя файла, который сохраняется в бакете
+  source = "local/path/to/your/image.jpg" // Укажите локальный путь к файлу, который вы хотите загрузить в бакет
+}
 
-    instance_template {
-      boot_disk {
-    }
+resource "yandex_compute_instance_group" "my_instance_group" {
+  name = "my-instance-group"
+  instance_template {
+    name        = "my-instance"
+    platform_id = "standard-v1"
 
     resources {
       cores  = 2
       memory = 2
     }
 
-    network_interface {
-      subnet_ids = yandex_vpc_subnet.private_subnet.id
-      nat       = true
+    boot_disk {
+      initialize_params {
+        image_id = "fd81id4ciatai2csff2u" // Укажите необходимый ID образа
+      }
     }
-  }
 
-  health_check {
-    interval  = 30
-    timeout   = 5
-    healthy_threshold = 2
-    unhealthy_threshold = 3
-  }
-
-  allocation_policy {
-    zones = ["ru-central1-a"]
-  }
-
-  deploy_policy {
-    strategy = "proactive"
-    max_unavailable = 0
-    max_expansion = 0
+    network_interface {
+      subnet_id = yandex_vpc_subnet.private_subnet.id
+    }
   }
 
   scale_policy {
     fixed_scale {
-      size = 3 // Количество инстансов
+      size = 2
     }
   }
+
+  healthcheck {
+    tcp {
+      port = 80 // Укажите порт, используемый для проверки работоспособности
+    }
+    interval = 10
+    timeout  = 5
+    unhealthy_threshold = 3
+    healthy_threshold   = 2
+  }
+}
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 }
