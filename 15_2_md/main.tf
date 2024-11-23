@@ -102,7 +102,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
   instance_template {
     boot_disk {
-      image_id = "fd8b1fqmhc9zv4403j1t" // Укажите образ, который хотите использовать для инстансов
+      image_id = "fd8gvuj4hvhepoet3dqj" // Укажите образ, который хотите использовать для инстансов
     }
 
     resources {
