@@ -88,12 +88,7 @@ resource "yandex_compute_instance" "private_instance" {
 
 // Создание бакета Object Storage
 resource "yandex_storage_bucket" "my_bucket" {
-  name = "denis_1997-04-10" # Замените на ваше имя и дату.
-  
-  access_control {
-    role     = "viewer" 
-    principal = "allUsers"
-  }
+  bucket = "denis_1997-04-10" # Замените на ваше имя и дату.
 }
 
 // Загрузка файла в бакет
@@ -105,24 +100,17 @@ resource "yandex_storage_object" "my_image" {
 
 // Группа ВМ с заданием для LAMP
 resource "yandex_compute_instance_group" "lamp_group" {
-  name        = "lamp-instance-group"
-  zone        = "ru-central1-a"
-  instances   = 3 // Количество инстансов
-  platform_id = "standard-v1"
+  name = "lamp-instance-group"
+  
+  allocation_policy {
+    zones = ["ru-central1-a"]
 
-  template {
-    resource "yandex_compute_instance" "lamp_template" {
-      count              = 3 // Количество VМ в группе
-      name               = "lamp-instance-${count.index}"
-      zone               = "ru-central1-a"
-      platform_id        = "standard-v1"
+    # Укажите экземпляр в группе
+    instances {
+      platform_id = "standard-v1"
       resources {
         cores   = 2
         memory  = 2
-      }
-
-      network_interface {
-        subnet_id = yandex_vpc_subnet.public_subnet.id
       }
 
       boot_disk {
@@ -131,9 +119,26 @@ resource "yandex_compute_instance_group" "lamp_group" {
         }
       }
 
+      network_interface {
+        subnet_id = yandex_vpc_subnet.public_subnet.id
+      }
+
       metadata = {
         ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo8IE6EQzy6ilrIgbAn+85ccWqC5a7Ol6BgLr9KaHwB8gksrTq0Ur9UMAULaHuK4ZQHeRL5BQRsAjHXMV2tHP+/KGTSBg3D+bAF0XC4y7TUsa9J4/BW2PeV0HQnfK/VXTFEOnnu3pIZl5E4Z5MbzDM3A3aBj57badbetWAZLY/Kwq1IE9GWkkXEhUX8j6ymp6vlcd+7sAo5OEVv+HP8IBdO6ilwwbNreTH8UOyscBq2nm29d5jcRlvqxvripaQdvtFli8V6xRxS1B/7TQvoxL5u3GOigOMSC27km2g4fqIKlZ/LKX0yDGY3G/FHmJSYCt0Zt/WjmoC2yxUSYgrG7wP your_email@example.com"
       }
+    }
+  }
+
+  scale_policy {
+    approximate_scaling_unit = 2
+    min_size                = 1
+    max_size                = 5
+  }
+
+  deploy_policy {
+    max_unavailable = 1
+  }
+}
 
       lifecycle {
         create_before_destroy = true
