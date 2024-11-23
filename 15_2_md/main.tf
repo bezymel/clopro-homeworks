@@ -90,12 +90,6 @@ resource "yandex_storage_bucket" "my_bucket" {
   bucket = "denis-10-04-1997" # Замените на ваше имя и дату. Пример: "ivanov-2024-04-01"
 }
 
-// Загрузка файла в бакет
-resource "yandex_storage_bucket" "my_bucket" {
-  name     = "my-bucket"
-  location = "ru-central1"
-}
-
 resource "yandex_storage_object" "my_image" {
   bucket = yandex_storage_bucket.my_bucket.name
   name   = "my_image.jpg" // Укажите имя файла, который сохраняется в бакете
@@ -130,7 +124,7 @@ resource "yandex_compute_instance_group" "my_instance_group" {
     }
   }
 
-  healthcheck {
+  health_check {
     tcp {
       port = 80 // Укажите порт, используемый для проверки работоспособности
     }
