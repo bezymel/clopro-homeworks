@@ -129,8 +129,8 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
   deploy_policy {
     strategy             = "proactive"
-    max_unavailable      = 0
-    max_expansion        = 0
+    max_unavailable      = 10
+    max_expansion        = 10
   }
 
   scale_policy {
