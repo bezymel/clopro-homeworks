@@ -100,7 +100,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
   name = "lamp-group"
 
   instance_template {
-    disk {
+    boot_disk {
       image_id = "fd81id4ciatai2csff2u"  # Укажите ID образа вашей виртуальной машины
       size = 10   # 10 ГБ
     }
@@ -138,7 +138,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
       size = 3 // Количество инстансов
     }
   }
-
+}
   service_account_id = "aje7pg51sslo9ue74dm4"  # Укажите ID вашего сервисного аккаунта
 }
 
