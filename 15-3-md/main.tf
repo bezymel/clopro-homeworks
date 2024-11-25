@@ -96,7 +96,7 @@ resource "yandex_compute_instance" "private_instance" {
 
 // Создание шифруемого бакета
 resource "yandex_storage_bucket" "my_bucket" {
-  bucket             = "denis_2024-04-10"
+  bucket             = "denis-2024-04-10"
   encryption_key_id  = yandex_kms_symmetric_key.my_key.id // Указываем ID ключа
 }
 
